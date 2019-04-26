@@ -1,7 +1,7 @@
-frdomain
+frdomain-extras.kt
 ========
 
-Code repo for [Functional and Reactive Domain Modeling](https://www.manning.com/books/functional-and-reactive-domain-modeling).
+Arrow port of the additional [Functional and Reactive Domain Modeling](https://www.manning.com/books/functional-and-reactive-domain-modeling) code samples. You can find the Scala version [here](https://github.com/debasishg/frdomain-extras).
 
 From the book page:
 
