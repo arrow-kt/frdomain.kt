@@ -85,8 +85,13 @@ sealed class Account(
             else a.validNel()
 
         private fun validateCloseDate(a: Account, cd: LocalDate): ValidationResult<LocalDate> =
-            if (cd.isBefore(a.dateOfOpen.orNull())) "Close date $cd cannot be earlier than open date ${a.dateOfOpen.orNull()}".invalidNel()
-            else cd.validNel()
+            a.dateOfOpen.fold(
+                { "Account ${a.no} has no open date".invalidNel() },
+                { od ->
+                    if (cd.isBefore(od)) "Close date $cd cannot be earlier than open date $od".invalidNel()
+                    else cd.validNel()
+                }
+            )
 
         fun close(a: Account, closeDate: LocalDate): ErrorOr<Account> =
             ValidationResult.applicative(NonEmptyList.semigroup<String>())
