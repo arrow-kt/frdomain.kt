@@ -1,18 +1,15 @@
 package io.arrowkt.model
 
-import io.arrowkt.Amount
-import io.arrowkt.ErrorOr
-import io.arrowkt.ValidationResult
-import arrow.core.Option
-import arrow.core.getOrElse
-import arrow.core.none
-import arrow.core.some
+import arrow.core.*
 import arrow.data.NonEmptyList
 import arrow.data.extensions.nonemptylist.semigroup.semigroup
 import arrow.data.extensions.validated.applicative.applicative
 import arrow.data.fix
 import arrow.data.invalidNel
 import arrow.data.validNel
+import io.arrowkt.Amount
+import io.arrowkt.ErrorOr
+import io.arrowkt.ValidationResult
 import io.arrowkt.today
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -38,7 +35,10 @@ sealed class Account(
             cd.map { c ->
                 if (c.isBefore(od)) "Close date $c cannot be earlier than open date $od".invalidNel()
                 else Pair(od.some(), cd).validNel()
-            }.getOrElse { Pair(od.some(), cd).validNel() }
+            }.fold(
+                { Pair(od.toOption(), cd).validNel() },
+                { it }
+            )
 
         private fun validateRate(rate: BigDecimal): ValidationResult<BigDecimal> =
             if (rate < BigDecimal.ZERO) "Interest rate $rate must be > 0".invalidNel()

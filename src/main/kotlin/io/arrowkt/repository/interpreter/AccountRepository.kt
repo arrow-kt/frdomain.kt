@@ -11,7 +11,7 @@ import io.arrowkt.repository.AccountRepository
 import io.arrowkt.today
 import java.time.LocalDate
 
-object AccountInMemoryRepository : AccountRepository {
+class AccountInMemoryRepository : AccountRepository {
 
     private val repo by lazy { mutableMapOf<String, Account>() }
 
