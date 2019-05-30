@@ -1,14 +1,14 @@
-package io.arrowkt.repository.interpreter
+package io.arrowkt.arrowio.repository.interpreter
 
 import arrow.core.Option
 import arrow.core.getOrElse
 import arrow.core.right
 import arrow.core.toOption
 import arrow.effects.IO
-import io.arrowkt.ErrorOr
-import io.arrowkt.model.Account
-import io.arrowkt.repository.AccountRepository
-import io.arrowkt.today
+import io.arrowkt.tagless.ErrorOr
+import io.arrowkt.tagless.model.Account
+import io.arrowkt.arrowio.repository.AccountRepository
+import io.arrowkt.tagless.today
 import java.time.LocalDate
 
 class AccountInMemoryRepository : AccountRepository {
