@@ -37,7 +37,7 @@ class AccountRepositoryInMemory<F>(me: MonadError<F, Throwable>) : AccountReposi
         repo[no].toOption()
             .map { it.balance }
             .fold(
-                { throw IllegalArgumentException("Non existing account not $no") },
+                { raiseError(IllegalArgumentException("Non existing account not $no")) },
                 { just(it) }
             )
 }
