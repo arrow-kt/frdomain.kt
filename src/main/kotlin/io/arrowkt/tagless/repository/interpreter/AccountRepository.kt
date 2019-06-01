@@ -18,9 +18,9 @@ class AccountRepositoryInMemory<F>(me: MonadError<F, Throwable>) : AccountReposi
     override fun query(no: String): Kind<F, Option<Account>> =
         just(repo[no].toOption())
 
-    override fun store(a: Account): Kind<F, Account> {
+    override fun store(a: Account): Kind<F, Account> = catch {
         repo[a.no] = a
-        return just(a)
+        a
     }
 
     override fun query(openedOn: LocalDate): Kind<F, Sequence<Account>> {
