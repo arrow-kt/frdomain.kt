@@ -1,4 +1,4 @@
-package io.arrowkt.model
+package io.arrowkt.tagless.model
 
 import arrow.core.*
 import arrow.data.NonEmptyList
@@ -7,10 +7,10 @@ import arrow.data.extensions.validated.applicative.applicative
 import arrow.data.fix
 import arrow.data.invalidNel
 import arrow.data.validNel
-import io.arrowkt.Amount
-import io.arrowkt.ErrorOr
-import io.arrowkt.ValidationResult
-import io.arrowkt.today
+import io.arrowkt.arrowio.Amount
+import io.arrowkt.arrowio.ErrorOr
+import io.arrowkt.arrowio.ValidationResult
+import io.arrowkt.arrowio.today
 import java.math.BigDecimal
 import java.time.LocalDate
 

@@ -1,11 +1,11 @@
-package io.arrowkt.repository
+package io.arrowkt.arrowio.repository
 
-import io.arrowkt.ErrorOr
+import io.arrowkt.tagless.ErrorOr
 import arrow.core.*
 import arrow.data.NonEmptyList
 import arrow.effects.IO
-import io.arrowkt.model.Account
-import io.arrowkt.model.Balance
+import io.arrowkt.tagless.model.Account
+import io.arrowkt.tagless.model.Balance
 import java.time.LocalDate
 
 interface AccountRepository {

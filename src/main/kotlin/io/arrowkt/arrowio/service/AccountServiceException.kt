@@ -1,4 +1,4 @@
-package io.arrowkt.service
+package io.arrowkt.arrowio.service
 
 import arrow.data.NonEmptyList
 

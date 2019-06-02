@@ -1,17 +1,17 @@
-package io.arrowkt.service.interpreter
+package io.arrowkt.arrowio.service.interpreter
 
 import arrow.core.*
 import arrow.data.EitherT
 import arrow.data.Kleisli
 import arrow.effects.IO
-import io.arrowkt.Amount
-import io.arrowkt.ErrorOr
-import io.arrowkt.model.Account
-import io.arrowkt.model.Balance
-import io.arrowkt.repository.AccountRepository
-import io.arrowkt.service.*
-import io.arrowkt.service.AccountService
-import io.arrowkt.today
+import io.arrowkt.arrowio.service.*
+import io.arrowkt.arrowio.service.AccountService
+import io.arrowkt.tagless.Amount
+import io.arrowkt.tagless.ErrorOr
+import io.arrowkt.tagless.model.Account
+import io.arrowkt.tagless.model.Balance
+import io.arrowkt.arrowio.repository.AccountRepository
+import io.arrowkt.tagless.today
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -92,10 +92,10 @@ object AccountService : AccountService<Account, Amount, Balance> {
     }
 
     override fun debit(no: String, amount: Amount): AccountOperation<Account> =
-        up(no, amount, DC.D)
+        up(no, amount, io.arrowkt.arrowio.service.interpreter.AccountService.DC.D)
 
     override fun credit(no: String, amount: Amount): AccountOperation<Account> =
-        up(no, amount, DC.C)
+        up(no, amount, io.arrowkt.arrowio.service.interpreter.AccountService.DC.C)
 
     private fun up(no: String, amount: Amount, dc: DC): AccountOperation<Account> =
         Kleisli { repo ->

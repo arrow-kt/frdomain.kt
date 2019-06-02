@@ -1,13 +1,13 @@
-package io.arrowkt.service.interpreter
+package io.arrowkt.arrowio.service.interpreter
 
 import arrow.core.left
 import arrow.core.right
 import arrow.data.EitherT
 import arrow.data.Kleisli
-import io.arrowkt.Amount
-import io.arrowkt.service.MiscellaneousDomainExceptions
-import io.arrowkt.service.ReportOperation
-import io.arrowkt.service.ReportingService
+import io.arrowkt.tagless.Amount
+import io.arrowkt.arrowio.service.MiscellaneousDomainExceptions
+import io.arrowkt.arrowio.service.ReportOperation
+import io.arrowkt.arrowio.service.ReportingService
 
 object ReportingService : ReportingService<Amount> {
 
