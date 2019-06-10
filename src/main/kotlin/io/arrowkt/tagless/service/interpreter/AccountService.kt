@@ -80,10 +80,10 @@ class AccountServiceInterpreter<F>(
     private fun createOrUpdate(
         repo: AccountRepository<F>,
         errorOrAccount: ErrorOr<Account>
-    ): Kind<F, Account> = when (errorOrAccount) {
-        is Either.Left -> raiseError(IllegalArgumentException("${errorOrAccount.a}"))
-        is Either.Right -> repo.store(errorOrAccount.b)
-    }
+    ): Kind<F, Account> = errorOrAccount.fold(
+        { raiseError(IllegalArgumentException("$it")) },
+        { repo.store(it) }
+    )
 
     override fun close(no: String, closeDate: Option<LocalDate>): Kleisli<F, AccountRepository<F>, Account> =
         Kleisli { repo ->
