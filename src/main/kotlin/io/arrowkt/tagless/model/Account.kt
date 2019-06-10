@@ -7,10 +7,10 @@ import arrow.data.extensions.validated.applicative.applicative
 import arrow.data.fix
 import arrow.data.invalidNel
 import arrow.data.validNel
-import io.arrowkt.arrowio.Amount
-import io.arrowkt.arrowio.ErrorOr
-import io.arrowkt.arrowio.ValidationResult
-import io.arrowkt.arrowio.today
+import io.arrowkt.tagless.Amount
+import io.arrowkt.tagless.ErrorOr
+import io.arrowkt.tagless.ValidationResult
+import io.arrowkt.tagless.today
 import java.math.BigDecimal
 import java.time.LocalDate
 
