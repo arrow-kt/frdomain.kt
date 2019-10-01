@@ -1,6 +1,6 @@
 package io.arrowkt.tagless.service.interpreter
 
-import arrow.data.Kleisli
+import arrow.mtl.Kleisli
 import arrow.typeclasses.MonadError
 import io.arrowkt.tagless.Amount
 import io.arrowkt.tagless.repository.AccountRepository

@@ -1,7 +1,7 @@
 package io.arrowkt.tagless.service.interpreter
 
 import arrow.core.getOrElse
-import arrow.data.Kleisli
+import arrow.mtl.Kleisli
 import arrow.typeclasses.MonadError
 import io.arrowkt.tagless.Amount
 import io.arrowkt.tagless.model.Account

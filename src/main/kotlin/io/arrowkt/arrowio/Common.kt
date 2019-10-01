@@ -1,8 +1,8 @@
 package io.arrowkt.arrowio
 
 import arrow.core.Either
-import arrow.data.NonEmptyList
-import arrow.data.ValidatedNel
+import arrow.core.NonEmptyList
+import arrow.core.ValidatedNel
 import java.math.BigDecimal
 import java.time.LocalDate
 

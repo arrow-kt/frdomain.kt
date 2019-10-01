@@ -4,7 +4,7 @@ import arrow.core.Option
 import arrow.core.getOrElse
 import arrow.core.right
 import arrow.core.toOption
-import arrow.effects.IO
+import arrow.fx.IO
 import io.arrowkt.tagless.ErrorOr
 import io.arrowkt.tagless.model.Account
 import io.arrowkt.arrowio.repository.AccountRepository
