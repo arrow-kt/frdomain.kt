@@ -3,9 +3,9 @@ package io.arrowkt.arrowio.app
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.some
-import arrow.data.fix
-import arrow.data.value
-import arrow.effects.fix
+import arrow.fx.fix
+import arrow.mtl.fix
+import arrow.mtl.value
 import io.arrowkt.arrowio.repository.interpreter.AccountInMemoryRepository
 import io.arrowkt.arrowio.service.AccountOperationMonad
 import io.arrowkt.arrowio.service.AccountType.CHECKING
@@ -24,7 +24,7 @@ fun main() {
 }
 
 fun usecase1() {
-    val opens = AccountOperationMonad.binding {
+    val opens = AccountOperationMonad.fx.monad {
         open("a1234", "a1name", None, None, CHECKING).bind()
         open("a2345", "a2name", None, None, CHECKING).bind()
         open("a3456", "a3name", BigDecimal(5.8).some(), None, SAVINGS).bind()
@@ -33,7 +33,7 @@ fun usecase1() {
         Unit
     }.fix()
 
-    val credits = AccountOperationMonad.binding {
+    val credits = AccountOperationMonad.fx.monad {
         credit("a1234", BigDecimal(1000)).bind()
         credit("a2345", BigDecimal(2000)).bind()
         credit("a3456", BigDecimal(3000)).bind()
@@ -41,7 +41,7 @@ fun usecase1() {
         Unit
     }.fix()
 
-    val c = AccountOperationMonad.binding {
+    val c = AccountOperationMonad.fx.monad {
         opens.bind()
         credits.bind()
         val a = balanceByAccount().bind()
@@ -70,7 +70,7 @@ fun usecase1() {
 }
 
 fun usecase2() {
-    val c = AccountOperationMonad.binding {
+    val c = AccountOperationMonad.fx.monad {
         open("a1234", "a1name", None, None, CHECKING).bind()
         credit("a2345", BigDecimal(2000)).bind()
         balanceByAccount().bind()
@@ -94,7 +94,7 @@ fun usecase2() {
 }
 
 fun usecase3() {
-    val c = AccountOperationMonad.binding {
+    val c = AccountOperationMonad.fx.monad {
         open("a1234", "a1name", None, None, CHECKING).bind()
         credit("a1234", BigDecimal(2000)).bind()
         debit("a1234", BigDecimal(4000)).bind()
@@ -119,7 +119,7 @@ fun usecase3() {
 }
 
 fun usecase4() {
-    val c = AccountOperationMonad.binding {
+    val c = AccountOperationMonad.fx.monad {
         val a = open("a134", "a1name", BigDecimal(0.7).some(), None, SAVINGS).bind()
         credit(a.no, BigDecimal(2000)).bind()
         debit(a.no, BigDecimal(4000)).bind()

@@ -1,14 +1,13 @@
 package io.arrowkt.tagless.service.interpreter
 
 import arrow.Kind
-import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.getOrElse
-import arrow.data.Kleisli
-import arrow.data.ReaderT
-import arrow.data.extensions.kleisli.monad.monad
-import arrow.data.fix
+import arrow.mtl.Kleisli
+import arrow.mtl.ReaderT
+import arrow.mtl.extensions.kleisli.monad.monad
+import arrow.mtl.fix
 import arrow.typeclasses.MonadError
 import io.arrowkt.tagless.Amount
 import io.arrowkt.tagless.ErrorOr
@@ -87,7 +86,7 @@ class AccountServiceInterpreter<F>(
 
     override fun close(no: String, closeDate: Option<LocalDate>): Kleisli<F, AccountRepository<F>, Account> =
         Kleisli { repo ->
-            binding {
+            fx.monad {
                 val maybeAccount = repo.query(no).bind()
                 val account =
                     maybeAccount.map { a -> createOrUpdate(repo, Account.close(a, closeDate.getOrElse { today() })) }
@@ -107,7 +106,7 @@ class AccountServiceInterpreter<F>(
 
     private fun update(no: String, amount: Amount, debitCredit: DC): Kleisli<F, AccountRepository<F>, Account> =
         Kleisli { repo ->
-            binding {
+            fx.monad {
                 val maybeAccount = repo.query(no).bind()
                 val multiplier = if (debitCredit == DC.D) -1L else 1L
                 val account = maybeAccount.map { a ->
@@ -130,10 +129,9 @@ class AccountServiceInterpreter<F>(
         to: String,
         amount: Amount
     ): Kleisli<F, AccountRepository<F>, Pair<Account, Account>> =
-        ReaderT.monad<F, AccountRepository<F>>(this).binding {
+        ReaderT.monad<F, AccountRepository<F>>(this).fx.monad {
             val a = debit(from, amount).bind()
             val b = credit(to, amount).bind()
             Pair(a, b)
         }.fix()
-
 }

@@ -1,9 +1,8 @@
 package io.arrowkt.arrowio.repository
 
-import io.arrowkt.tagless.ErrorOr
 import arrow.core.*
-import arrow.data.NonEmptyList
-import arrow.effects.IO
+import arrow.fx.IO
+import io.arrowkt.tagless.ErrorOr
 import io.arrowkt.tagless.model.Account
 import io.arrowkt.tagless.model.Balance
 import java.time.LocalDate

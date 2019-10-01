@@ -1,6 +1,6 @@
 package io.arrowkt.tagless.service
 
-import arrow.data.Kleisli
+import arrow.mtl.Kleisli
 
 interface InterestCalculation<F, Account, Amount> {
 

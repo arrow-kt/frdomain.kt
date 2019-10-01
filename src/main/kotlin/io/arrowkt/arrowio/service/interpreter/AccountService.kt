@@ -1,9 +1,9 @@
 package io.arrowkt.arrowio.service.interpreter
 
 import arrow.core.*
-import arrow.data.EitherT
-import arrow.data.Kleisli
-import arrow.effects.IO
+import arrow.fx.IO
+import arrow.mtl.EitherT
+import arrow.mtl.Kleisli
 import io.arrowkt.arrowio.service.*
 import io.arrowkt.arrowio.service.AccountService
 import io.arrowkt.tagless.Amount

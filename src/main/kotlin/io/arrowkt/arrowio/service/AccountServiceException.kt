@@ -1,6 +1,7 @@
 package io.arrowkt.arrowio.service
 
-import arrow.data.NonEmptyList
+import arrow.core.NonEmptyList
+
 
 sealed class AccountServiceException(open val message: NonEmptyList<String>)
 

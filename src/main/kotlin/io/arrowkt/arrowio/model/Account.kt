@@ -1,12 +1,8 @@
 package io.arrowkt.arrowio.model
 
 import arrow.core.*
-import arrow.data.NonEmptyList
-import arrow.data.extensions.nonemptylist.semigroup.semigroup
-import arrow.data.extensions.validated.applicative.applicative
-import arrow.data.fix
-import arrow.data.invalidNel
-import arrow.data.validNel
+import arrow.core.extensions.nonemptylist.semigroup.semigroup
+import arrow.core.extensions.validated.applicative.applicative
 import io.arrowkt.arrowio.Amount
 import io.arrowkt.arrowio.ErrorOr
 import io.arrowkt.arrowio.ValidationResult

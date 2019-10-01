@@ -1,8 +1,8 @@
 package io.arrowkt.arrowio.service
 
-import arrow.data.EitherTPartialOf
-import arrow.data.Kleisli
-import arrow.effects.ForIO
+import arrow.fx.ForIO
+import arrow.mtl.EitherTPartialOf
+import arrow.mtl.Kleisli
 
 interface InterestCalculation<Account, Amount> {
 

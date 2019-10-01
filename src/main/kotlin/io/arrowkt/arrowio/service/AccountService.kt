@@ -1,7 +1,7 @@
 package io.arrowkt.arrowio.service
 
 import arrow.core.Option
-import arrow.data.fix
+import arrow.mtl.fix
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -29,7 +29,7 @@ interface AccountService<Account, Amount, Balance> {
     fun balance(no: String): AccountOperation<Balance>
 
     fun transfer(from: String, to: String, amount: Amount): AccountOperation<Pair<Account, Account>> =
-        AccountOperationMonad.binding {
+        AccountOperationMonad.fx.monad {
             val a = debit(from, amount).bind()
             val b = credit(to, amount).bind()
             Pair(a, b)

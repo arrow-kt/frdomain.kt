@@ -3,11 +3,11 @@ package io.arrowkt.arrowio.service.interpreter
 import arrow.core.getOrElse
 import arrow.core.left
 import arrow.core.right
-import arrow.data.EitherT
-import arrow.data.EitherTPartialOf
-import arrow.data.Kleisli
-import arrow.effects.ForIO
-import arrow.effects.IO
+import arrow.fx.ForIO
+import arrow.fx.IO
+import arrow.mtl.EitherT
+import arrow.mtl.EitherTPartialOf
+import arrow.mtl.Kleisli
 import io.arrowkt.tagless.Amount
 import io.arrowkt.tagless.model.Account
 import io.arrowkt.arrowio.service.AccountServiceException

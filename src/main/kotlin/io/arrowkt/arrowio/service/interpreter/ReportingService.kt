@@ -2,8 +2,8 @@ package io.arrowkt.arrowio.service.interpreter
 
 import arrow.core.left
 import arrow.core.right
-import arrow.data.EitherT
-import arrow.data.Kleisli
+import arrow.mtl.EitherT
+import arrow.mtl.Kleisli
 import io.arrowkt.tagless.Amount
 import io.arrowkt.arrowio.service.MiscellaneousDomainExceptions
 import io.arrowkt.arrowio.service.ReportOperation
