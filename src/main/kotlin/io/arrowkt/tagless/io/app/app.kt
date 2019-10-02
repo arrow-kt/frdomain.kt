@@ -2,13 +2,13 @@ package io.arrowkt.tagless.io.app
 
 import arrow.core.none
 import arrow.core.some
-import arrow.data.ReaderT
-import arrow.data.extensions.kleisli.monad.monad
-import arrow.data.fix
-import arrow.effects.ForIO
-import arrow.effects.IO
-import arrow.effects.extensions.io.monadError.monadError
-import arrow.effects.fix
+import arrow.fx.ForIO
+import arrow.fx.IO
+import arrow.fx.extensions.io.monadError.monadError
+import arrow.fx.fix
+import arrow.mtl.ReaderT
+import arrow.mtl.extensions.kleisli.monad.monad
+import arrow.mtl.fix
 import io.arrowkt.tagless.repository.AccountRepository
 import io.arrowkt.tagless.repository.interpreter.AccountRepositoryInMemory
 import io.arrowkt.tagless.service.AccountType
@@ -19,7 +19,7 @@ import io.arrowkt.tagless.service.interpreter.ReportingServiceInterpreter
 val accountServiceIO = AccountServiceInterpreter(IO.monadError())
 val interestPostingServiceIO = InterestPostingServiceInterpreter(IO.monadError())
 val reportingServiceIO = ReportingServiceInterpreter(IO.monadError())
-val monad = ReaderT.monad<ForIO, AccountRepository<ForIO>>(IO.monadError())
+val kleisliIOMonad = ReaderT.monad<ForIO, AccountRepository<ForIO>>(IO.monadError())
 
 fun main() {
     usecase1()
@@ -29,7 +29,7 @@ fun main() {
 }
 
 fun usecase1() {
-    val opens = monad.binding {
+    val opens = kleisliIOMonad.fx.monad {
         accountServiceIO.open("a1234", "a1name", none(), none(), AccountType.CHECKING).bind()
         accountServiceIO.open("a2345", "a2name", none(), none(), AccountType.CHECKING).bind()
         accountServiceIO.open("a3456", "a3name", 5.8.toBigDecimal().some(), none(), AccountType.SAVINGS).bind()
@@ -38,7 +38,7 @@ fun usecase1() {
         Unit
     }
 
-    val credits = monad.binding {
+    val credits = kleisliIOMonad.fx.monad {
         accountServiceIO.credit("a1234", 1000.toBigDecimal()).bind()
         accountServiceIO.credit("a2345", 2000.toBigDecimal()).bind()
         accountServiceIO.credit("a3456", 3000.toBigDecimal()).bind()
@@ -46,7 +46,7 @@ fun usecase1() {
         Unit
     }
 
-    val c = monad.binding {
+    val c = kleisliIOMonad.fx.monad {
         opens.bind()
         credits.bind()
         val a = reportingServiceIO.balanceByAccount().bind()
@@ -70,7 +70,7 @@ fun usecase1() {
 }
 
 fun usecase2() {
-    val c = monad.binding {
+    val c = kleisliIOMonad.fx.monad {
         accountServiceIO.open("a1234", "a1name", none(), none(), AccountType.CHECKING).bind()
         accountServiceIO.credit("a2345", 2000.toBigDecimal()).bind()
         val a = reportingServiceIO.balanceByAccount().bind()
@@ -90,7 +90,7 @@ fun usecase2() {
 }
 
 fun usecase3() {
-    val c = monad.binding {
+    val c = kleisliIOMonad.fx.monad {
         accountServiceIO.open("a1234", "a1name", none(), none(), AccountType.CHECKING).bind()
         accountServiceIO.credit("a1234", 2000.toBigDecimal()).bind()
         accountServiceIO.debit("a1234", 4000.toBigDecimal()).bind()
@@ -111,7 +111,7 @@ fun usecase3() {
 }
 
 fun usecase4() {
-    val c = monad.binding {
+    val c = kleisliIOMonad.fx.monad {
         val a = accountServiceIO.open("a134", "a1name", (-0.9).toBigDecimal().some(), none(), AccountType.SAVINGS).bind()
         accountServiceIO.credit(a.no, 2000.toBigDecimal()).bind()
         accountServiceIO.debit(a.no, 4000.toBigDecimal()).bind()
