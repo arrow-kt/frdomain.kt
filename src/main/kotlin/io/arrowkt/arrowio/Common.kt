@@ -9,5 +9,6 @@ import java.time.LocalDate
 typealias Amount = BigDecimal
 typealias ValidationResult<A> = ValidatedNel<String, A>
 typealias ErrorOr<A> = Either<NonEmptyList<String>, A>
+typealias DomainError = NonEmptyList<String>
 
 fun today() = LocalDate.now()

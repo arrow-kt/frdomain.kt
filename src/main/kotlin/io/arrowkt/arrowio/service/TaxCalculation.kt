@@ -1,10 +1,9 @@
 package io.arrowkt.arrowio.service
 
-import arrow.fx.ForIO
-import arrow.mtl.EitherTPartialOf
+import arrow.fx.IOPartialOf
 import arrow.mtl.Kleisli
 
 interface TaxCalculation<Amount> {
 
-    fun computeTax(): Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, Amount, Amount>
+    fun computeTax(): Kleisli<Amount, IOPartialOf<AccountServiceException>, Amount>
 }

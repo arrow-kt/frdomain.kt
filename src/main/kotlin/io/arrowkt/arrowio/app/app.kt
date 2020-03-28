@@ -1,11 +1,9 @@
 package io.arrowkt.arrowio.app
 
-import arrow.core.Either
 import arrow.core.None
 import arrow.core.some
 import arrow.fx.fix
 import arrow.mtl.fix
-import arrow.mtl.value
 import io.arrowkt.arrowio.repository.interpreter.AccountInMemoryRepository
 import io.arrowkt.arrowio.service.AccountOperationMonad
 import io.arrowkt.arrowio.service.AccountType.CHECKING
@@ -48,17 +46,15 @@ fun usecase1() {
         a
     }.fix()
 
-    val y = c.run(AccountInMemoryRepository())
+    val y = c.run(AccountInMemoryRepository()).fix()
 
-    y.value().fix().unsafeRunAsync { cb ->
+
+
+    y.unsafeRunAsyncEither { cb ->
         cb.fold(
             { it.printStackTrace() },
-            { either ->
-                when (either) {
-                    is Either.Left -> println(either.a)
-                    is Either.Right -> either.b.forEach(::println)
-                }
-            }
+            { ex -> println(ex) },
+            { it.forEach(::println) }
         )
     }
 
@@ -76,17 +72,13 @@ fun usecase2() {
         balanceByAccount().bind()
     }.fix()
 
-    val y = c.run(AccountInMemoryRepository())
+    val y = c.run(AccountInMemoryRepository()).fix()
 
-    y.value().fix().unsafeRunAsync { cb ->
+    y.unsafeRunAsyncEither { cb ->
         cb.fold(
             { it.printStackTrace() },
-            { either ->
-                when (either) {
-                    is Either.Left -> println(either.a)
-                    is Either.Right -> either.b.forEach(::println)
-                }
-            }
+            { ex -> println(ex) },
+            { it.forEach(::println) }
         )
     }
 
@@ -101,17 +93,13 @@ fun usecase3() {
         balanceByAccount().bind()
     }.fix()
 
-    val y = c.run(AccountInMemoryRepository())
+    val y = c.run(AccountInMemoryRepository()).fix()
 
-    y.value().fix().unsafeRunAsync { cb ->
+    y.unsafeRunAsyncEither { cb ->
         cb.fold(
             { it.printStackTrace() },
-            { either ->
-                when (either) {
-                    is Either.Left -> println(either.a)
-                    is Either.Right -> either.b.forEach(::println)
-                }
-            }
+            { ex -> println(ex) },
+            { it.forEach(::println) }
         )
     }
 
@@ -126,17 +114,13 @@ fun usecase4() {
         balanceByAccount().bind()
     }.fix()
 
-    val y = c.run(AccountInMemoryRepository())
+    val y = c.run(AccountInMemoryRepository()).fix()
 
-    y.value().fix().unsafeRunAsync { cb ->
+    y.unsafeRunAsyncEither { cb ->
         cb.fold(
             { it.printStackTrace() },
-            { either ->
-                when (either) {
-                    is Either.Left -> println(either.a)
-                    is Either.Right -> either.b.forEach(::println)
-                }
-            }
+            { ex -> println(ex) },
+            { it.forEach(::println) }
         )
     }
 

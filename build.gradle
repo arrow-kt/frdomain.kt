@@ -11,14 +11,18 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://oss.jfrog.org/artifactory/oss-snapshot-local/"
+    }
 }
 
-def arrow_version = "0.10.3"
+def arrow_version = "0.11.0-SNAPSHOT"
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    implementation "io.arrow-kt:arrow-fx:$arrow_version"
+    implementation "io.arrow-kt:arrow-core:$arrow_version"
     implementation "io.arrow-kt:arrow-syntax:$arrow_version"
+    implementation "io.arrow-kt:arrow-fx:$arrow_version"
     kapt "io.arrow-kt:arrow-meta:$arrow_version"
 
     implementation "io.arrow-kt:arrow-mtl:$arrow_version"

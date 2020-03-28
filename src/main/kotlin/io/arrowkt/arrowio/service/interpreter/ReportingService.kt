@@ -1,10 +1,8 @@
 package io.arrowkt.arrowio.service.interpreter
 
-import arrow.core.left
-import arrow.core.right
-import arrow.mtl.EitherT
+import arrow.fx.mapError
 import arrow.mtl.Kleisli
-import io.arrowkt.tagless.Amount
+import io.arrowkt.arrowio.Amount
 import io.arrowkt.arrowio.service.MiscellaneousDomainExceptions
 import io.arrowkt.arrowio.service.ReportOperation
 import io.arrowkt.arrowio.service.ReportingService
@@ -13,14 +11,8 @@ object ReportingService : ReportingService<Amount> {
 
     override fun balanceByAccount(): ReportOperation<Sequence<Pair<String, Amount>>> =
         Kleisli { repo ->
-            EitherT(
-                repo.all()
-                    .map {
-                        it.fold(
-                            { message -> MiscellaneousDomainExceptions(message).left() },
-                            { it.map { a -> Pair(a.no, a.balance.amount) }.right() }
-                        )
-                    }
-            )
+            repo.all()
+                .map { it.map { a -> Pair(a.no, a.balance.amount) } }
+                .mapError { MiscellaneousDomainExceptions(it) }
         }
 }
