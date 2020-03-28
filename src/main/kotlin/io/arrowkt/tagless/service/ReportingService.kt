@@ -5,5 +5,5 @@ import io.arrowkt.tagless.repository.AccountRepository
 
 interface ReportingService<F, Amount> {
 
-    fun balanceByAccount(): Kleisli<F, AccountRepository<F>, Sequence<Pair<String, Amount>>>
+    fun balanceByAccount(): Kleisli<AccountRepository<F>, F, Sequence<Pair<String, Amount>>>
 }

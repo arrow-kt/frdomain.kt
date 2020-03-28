@@ -31,7 +31,7 @@ class AccountServiceInterpreter<F>(
         rate: Option<BigDecimal>,
         openingDate: Option<LocalDate>,
         accountType: AccountType
-    ): Kleisli<F, AccountRepository<F>, Account> = Kleisli { repo ->
+    ): Kleisli<AccountRepository<F>, F, Account> = Kleisli { repo ->
         repo.query(no)
             .flatMap { maybeAccount ->
                 doOpenAccount(
@@ -84,7 +84,7 @@ class AccountServiceInterpreter<F>(
         { repo.store(it) }
     )
 
-    override fun close(no: String, closeDate: Option<LocalDate>): Kleisli<F, AccountRepository<F>, Account> =
+    override fun close(no: String, closeDate: Option<LocalDate>): Kleisli<AccountRepository<F>, F, Account> =
         Kleisli { repo ->
             fx.monad {
                 val maybeAccount = repo.query(no).bind()
@@ -104,7 +104,7 @@ class AccountServiceInterpreter<F>(
 
     override fun credit(no: String, amount: Amount) = update(no, amount, DC.C)
 
-    private fun update(no: String, amount: Amount, debitCredit: DC): Kleisli<F, AccountRepository<F>, Account> =
+    private fun update(no: String, amount: Amount, debitCredit: DC): Kleisli<AccountRepository<F>, F, Account> =
         Kleisli { repo ->
             fx.monad {
                 val maybeAccount = repo.query(no).bind()
@@ -121,15 +121,15 @@ class AccountServiceInterpreter<F>(
             }
         }
 
-    override fun balance(no: String): Kleisli<F, AccountRepository<F>, Balance> =
+    override fun balance(no: String): Kleisli<AccountRepository<F>, F, Balance> =
         Kleisli { repo -> repo.balance(no) }
 
     override fun transfer(
         from: String,
         to: String,
         amount: Amount
-    ): Kleisli<F, AccountRepository<F>, Pair<Account, Account>> =
-        ReaderT.monad<F, AccountRepository<F>>(this).fx.monad {
+    ): Kleisli<AccountRepository<F>, F, Pair<Account, Account>> =
+        ReaderT.monad<AccountRepository<F>, F>(this).fx.monad {
             val a = debit(from, amount).bind()
             val b = credit(to, amount).bind()
             Pair(a, b)

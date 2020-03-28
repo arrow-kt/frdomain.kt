@@ -12,7 +12,7 @@ import java.math.BigDecimal
 class InterestPostingServiceInterpreter<F>(me: MonadError<F, Throwable>) : InterestPostingService<F, Account, Amount>,
     MonadError<F, Throwable> by me {
 
-    override fun computeInterest(): Kleisli<F, Account, Amount> = Kleisli { account ->
+    override fun computeInterest(): Kleisli<Account, F, Amount> = Kleisli { account ->
         if (account.dateOfClose.isDefined()) raiseError(IllegalArgumentException("Account no ${account.no} is closed"))
         else Account.rate(account).map { r ->
             val a = account.balance.amount
@@ -20,7 +20,7 @@ class InterestPostingServiceInterpreter<F>(me: MonadError<F, Throwable>) : Inter
         }.getOrElse { just(BigDecimal.ZERO) }
     }
 
-    override fun computeTax(): Kleisli<F, Amount, Amount> = Kleisli { amount ->
+    override fun computeTax(): Kleisli<Amount, F, Amount> = Kleisli { amount ->
         just(amount * BigDecimal("0.1"))
     }
 }

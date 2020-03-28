@@ -2,10 +2,11 @@ package io.arrowkt.tagless.io.app
 
 import arrow.core.none
 import arrow.core.some
-import arrow.fx.ForIO
 import arrow.fx.IO
+import arrow.fx.IOPartialOf
 import arrow.fx.extensions.io.monadError.monadError
 import arrow.fx.fix
+import arrow.fx.unsafeRunAsync
 import arrow.mtl.ReaderT
 import arrow.mtl.extensions.kleisli.monad.monad
 import arrow.mtl.fix
@@ -16,10 +17,11 @@ import io.arrowkt.tagless.service.interpreter.AccountServiceInterpreter
 import io.arrowkt.tagless.service.interpreter.InterestPostingServiceInterpreter
 import io.arrowkt.tagless.service.interpreter.ReportingServiceInterpreter
 
-val accountServiceIO = AccountServiceInterpreter(IO.monadError())
-val interestPostingServiceIO = InterestPostingServiceInterpreter(IO.monadError())
-val reportingServiceIO = ReportingServiceInterpreter(IO.monadError())
-val kleisliIOMonad = ReaderT.monad<ForIO, AccountRepository<ForIO>>(IO.monadError())
+val me = IO.monadError<Nothing>()
+val accountServiceIO = AccountServiceInterpreter(me)
+val interestPostingServiceIO = InterestPostingServiceInterpreter(me)
+val reportingServiceIO = ReportingServiceInterpreter(me)
+val kleisliIOMonad = ReaderT.monad<AccountRepository<IOPartialOf<Nothing>>, IOPartialOf<Nothing>>(me)
 
 fun main() {
     usecase1()
@@ -36,7 +38,7 @@ fun usecase1() {
         accountServiceIO.open("a4567", "a4name", none(), none(), AccountType.CHECKING).bind()
         accountServiceIO.open("a5678", "a5name", 2.3.toBigDecimal().some(), none(), AccountType.SAVINGS).bind()
         Unit
-    }
+    }.fix()
 
     val credits = kleisliIOMonad.fx.monad {
         accountServiceIO.credit("a1234", 1000.toBigDecimal()).bind()
@@ -44,7 +46,7 @@ fun usecase1() {
         accountServiceIO.credit("a3456", 3000.toBigDecimal()).bind()
         accountServiceIO.credit("a4567", 4000.toBigDecimal()).bind()
         Unit
-    }
+    }.fix()
 
     val c = kleisliIOMonad.fx.monad {
         opens.bind()
@@ -55,9 +57,10 @@ fun usecase1() {
 
     val y = c.run(AccountRepositoryInMemory(IO.monadError())).fix()
 
-    y.unsafeRunAsync { res ->
-        res.fold(
+    y.unsafeRunAsyncEither { ioResult ->
+        ioResult.fold(
             { it.printStackTrace() },
+            { },
             { it.forEach(::println) }
         )
     }
@@ -79,8 +82,8 @@ fun usecase2() {
 
     val y = c.run(AccountRepositoryInMemory(IO.monadError())).fix()
 
-    y.unsafeRunAsync { res ->
-        res.fold(
+    y.unsafeRunAsync{ ioResult ->
+        ioResult.fold(
             { it.printStackTrace() },
             { it.forEach(::println) }
         )
@@ -100,8 +103,8 @@ fun usecase3() {
 
     val y = c.run(AccountRepositoryInMemory(IO.monadError())).fix()
 
-    y.unsafeRunAsync { res ->
-        res.fold(
+    y.unsafeRunAsync{ ioResult ->
+        ioResult.fold(
             { it.printStackTrace() },
             { it.forEach(::println) }
         )
@@ -121,8 +124,8 @@ fun usecase4() {
 
     val y = c.run(AccountRepositoryInMemory(IO.monadError())).fix()
 
-    y.unsafeRunAsync { res ->
-        res.fold(
+    y.unsafeRunAsync{ ioResult ->
+        ioResult.fold(
             { it.printStackTrace() },
             { it.forEach(::println) }
         )
