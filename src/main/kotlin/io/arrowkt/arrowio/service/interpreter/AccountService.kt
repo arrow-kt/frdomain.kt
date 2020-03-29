@@ -27,7 +27,7 @@ object AccountService : AccountService<Account, Amount, Balance> {
         rate: Option<BigDecimal>,
         openingDate: Option<LocalDate>,
         accountType: AccountType
-    ): AccountOperation<Account> = Kleisli.invoke { repo ->
+    ): AccountOperation<Account> = Kleisli { repo ->
         repo.query(no).flatMap { accountOpt ->
             accountOpt.fold(
                 ifEmpty = {
@@ -54,7 +54,7 @@ object AccountService : AccountService<Account, Amount, Balance> {
             .mapError { MiscellaneousDomainExceptions(it) }
 
     override fun close(no: String, closeDate: Option<LocalDate>): AccountOperation<Account> =
-        Kleisli.invoke { repo ->
+        Kleisli { repo ->
             repo.query(no).flatMap { accountOpt ->
                 accountOpt.fold(
                     ifEmpty = { IO.raiseError<NonExistingAccount, Account>(NonExistingAccount(no)) },
