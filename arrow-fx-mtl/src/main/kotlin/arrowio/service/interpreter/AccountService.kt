@@ -1,17 +1,17 @@
-package io.arrowkt.arrowio.service.interpreter
+package arrowio.service.interpreter
 
 import arrow.core.*
 import arrow.fx.IO
 import arrow.mtl.EitherT
 import arrow.mtl.Kleisli
-import io.arrowkt.arrowio.service.*
-import io.arrowkt.arrowio.service.AccountService
-import io.arrowkt.tagless.Amount
-import io.arrowkt.tagless.ErrorOr
-import io.arrowkt.tagless.model.Account
-import io.arrowkt.tagless.model.Balance
-import io.arrowkt.arrowio.repository.AccountRepository
-import io.arrowkt.tagless.today
+import arrowio.Amount
+import arrowio.ErrorOr
+import arrowio.model.Account
+import arrowio.model.Balance
+import arrowio.repository.AccountRepository
+import arrowio.service.*
+import arrowio.service.AccountService
+import arrowio.today
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -42,7 +42,7 @@ object AccountService : AccountService<Account, Amount, Balance> {
                                             Account.savingsAccount(no, name, r, openingDate, None, Balance())
                                         )
                                     }.getOrElse {
-                                        IO { RateMissingForSavingsAccount.left() }
+                                        IO { arrowio.service.RateMissingForSavingsAccount.left() }
                                     }
                                 }
                             },
@@ -77,7 +77,10 @@ object AccountService : AccountService<Account, Amount, Balance> {
                                 { IO { NonExistingAccount(no).left() } },
                                 {
                                     val cd = closeDate.getOrElse { today() }
-                                    createOrUpdate(repo, Account.close(it, cd))
+                                    createOrUpdate(
+                                        repo,
+                                        Account.close(it, cd)
+                                    )
                                 }
                             )
                         }
@@ -92,10 +95,18 @@ object AccountService : AccountService<Account, Amount, Balance> {
     }
 
     override fun debit(no: String, amount: Amount): AccountOperation<Account> =
-        up(no, amount, io.arrowkt.arrowio.service.interpreter.AccountService.DC.D)
+        up(
+            no,
+            amount,
+            DC.D
+        )
 
     override fun credit(no: String, amount: Amount): AccountOperation<Account> =
-        up(no, amount, io.arrowkt.arrowio.service.interpreter.AccountService.DC.C)
+        up(
+            no,
+            amount,
+            DC.C
+        )
 
     private fun up(no: String, amount: Amount, dc: DC): AccountOperation<Account> =
         Kleisli { repo ->
@@ -108,8 +119,14 @@ object AccountService : AccountService<Account, Amount, Balance> {
                                 { IO { NonExistingAccount(no).left() } },
                                 {
                                     val updated = when (dc) {
-                                        is DC.D -> createOrUpdate(repo, Account.updateBalance(it, -amount))
-                                        is DC.C -> createOrUpdate(repo, Account.updateBalance(it, amount))
+                                        is DC.D -> createOrUpdate(
+                                            repo,
+                                            Account.updateBalance(it, -amount)
+                                        )
+                                        is DC.C -> createOrUpdate(
+                                            repo,
+                                            Account.updateBalance(it, amount)
+                                        )
                                     }
                                     updated
                                 }

@@ -1,4 +1,4 @@
-package io.arrowkt.arrowio.service
+package arrowio.service
 
 import arrow.fx.ForIO
 import arrow.mtl.EitherTPartialOf

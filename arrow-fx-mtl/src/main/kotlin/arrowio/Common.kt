@@ -1,4 +1,4 @@
-package io.arrowkt.arrowio
+package arrowio
 
 import arrow.core.Either
 import arrow.core.NonEmptyList

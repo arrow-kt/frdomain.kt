@@ -1,4 +1,4 @@
-package io.arrowkt.arrowio.service.interpreter
+package arrowio.service.interpreter
 
 import arrow.core.getOrElse
 import arrow.core.left
@@ -8,11 +8,11 @@ import arrow.fx.IO
 import arrow.mtl.EitherT
 import arrow.mtl.EitherTPartialOf
 import arrow.mtl.Kleisli
-import io.arrowkt.tagless.Amount
-import io.arrowkt.tagless.model.Account
-import io.arrowkt.arrowio.service.AccountServiceException
-import io.arrowkt.arrowio.service.ClosedAccount
-import io.arrowkt.arrowio.service.InterestPostingService
+import arrowio.Amount
+import arrowio.model.Account
+import arrowio.service.AccountServiceException
+import arrowio.service.ClosedAccount
+import arrowio.service.InterestPostingService
 import java.math.BigDecimal
 
 object InterestPostingService : InterestPostingService<Account, Amount> {

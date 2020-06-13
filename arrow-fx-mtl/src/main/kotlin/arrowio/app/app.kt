@@ -1,4 +1,4 @@
-package io.arrowkt.arrowio.app
+package arrowio.app
 
 import arrow.core.Either
 import arrow.core.None
@@ -6,14 +6,14 @@ import arrow.core.some
 import arrow.fx.fix
 import arrow.mtl.fix
 import arrow.mtl.value
-import io.arrowkt.arrowio.repository.interpreter.AccountInMemoryRepository
-import io.arrowkt.arrowio.service.AccountOperationMonad
-import io.arrowkt.arrowio.service.AccountType.CHECKING
-import io.arrowkt.arrowio.service.AccountType.SAVINGS
-import io.arrowkt.arrowio.service.interpreter.AccountService.credit
-import io.arrowkt.arrowio.service.interpreter.AccountService.debit
-import io.arrowkt.arrowio.service.interpreter.AccountService.open
-import io.arrowkt.arrowio.service.interpreter.ReportingService.balanceByAccount
+import arrowio.repository.interpreter.AccountInMemoryRepository
+import arrowio.service.AccountOperationMonad
+import arrowio.service.AccountType.CHECKING
+import arrowio.service.AccountType.SAVINGS
+import arrowio.service.interpreter.AccountService.credit
+import arrowio.service.interpreter.AccountService.debit
+import arrowio.service.interpreter.AccountService.open
+import arrowio.service.interpreter.ReportingService.balanceByAccount
 import java.math.BigDecimal
 
 fun main() {

@@ -1,9 +1,9 @@
-package io.arrowkt.arrowio.service
+package arrowio.service
 
 import arrow.fx.ForIO
 import arrow.mtl.EitherTPartialOf
 import arrow.mtl.Kleisli
-import io.arrowkt.arrowio.repository.AccountRepository
+import arrowio.repository.AccountRepository
 
 typealias ReportOperation<A> = Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, AccountRepository, A>
 
