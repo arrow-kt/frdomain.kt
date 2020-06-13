@@ -17,7 +17,7 @@ import java.math.BigDecimal
 
 object InterestPostingService : InterestPostingService<Account, Amount> {
 
-    override fun calculateInterest(): Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, Account, Amount> =
+    override fun calculateInterest(): Kleisli<Account, EitherTPartialOf<AccountServiceException, ForIO>, Amount> =
         Kleisli { account ->
             EitherT(
                 IO {
@@ -30,7 +30,7 @@ object InterestPostingService : InterestPostingService<Account, Amount> {
             )
         }
 
-    override fun computeTax(): Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, Amount, Amount> =
+    override fun computeTax(): Kleisli<Amount, EitherTPartialOf<AccountServiceException, ForIO>, Amount> =
         Kleisli { amount ->
             EitherT(
                 IO {

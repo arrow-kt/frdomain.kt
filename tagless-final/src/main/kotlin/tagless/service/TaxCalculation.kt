@@ -4,5 +4,5 @@ import arrow.mtl.Kleisli
 
 interface TaxCalculation<F, Amount> {
 
-    fun computeTax(): Kleisli<F, Amount, Amount>
+    fun computeTax(): Kleisli<Amount, F, Amount>
 }

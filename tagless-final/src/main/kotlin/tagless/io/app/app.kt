@@ -19,7 +19,7 @@ import tagless.service.interpreter.ReportingServiceInterpreter
 val accountServiceIO = AccountServiceInterpreter(IO.monadError())
 val interestPostingServiceIO = InterestPostingServiceInterpreter(IO.monadError())
 val reportingServiceIO = ReportingServiceInterpreter(IO.monadError())
-val kleisliIOMonad = ReaderT.monad<ForIO, AccountRepository<ForIO>>(IO.monadError())
+val kleisliIOMonad = ReaderT.monad<AccountRepository<ForIO>, ForIO>(IO.monadError())
 
 fun main() {
     usecase1()

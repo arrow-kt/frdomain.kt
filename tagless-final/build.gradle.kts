@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-val arrow_version = "0.10.0"
+val arrow_version = "0.10.5"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.arrow-kt:arrow-fx:$arrow_version")

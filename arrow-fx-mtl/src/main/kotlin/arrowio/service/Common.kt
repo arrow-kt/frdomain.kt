@@ -12,10 +12,6 @@ import arrow.mtl.extensions.kleisli.monad.monad
 import arrowio.repository.AccountRepository
 
 val AccountOperationMonad =
-    ReaderT.monad<EitherTPartialOf<ForIO, AccountServiceException>, AccountRepository>(EitherT.monad(IO.monad()))
+    ReaderT.monad<AccountRepository, EitherTPartialOf<AccountServiceException, ForIO>>(EitherT.monad(IO.monad()))
 
-typealias AccountOperation<A> = Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, AccountRepository, A>
-
-fun main() {
-
-}
+typealias AccountOperation<A> = Kleisli<AccountRepository, EitherTPartialOf<AccountServiceException, ForIO>, A>

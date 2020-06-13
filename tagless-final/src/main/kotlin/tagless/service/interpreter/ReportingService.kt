@@ -10,7 +10,7 @@ import tagless.service.ReportingService
 class ReportingServiceInterpreter<F>(me: MonadError<F, Throwable>) : ReportingService<F, Amount>,
     MonadError<F, Throwable> by me {
 
-    override fun balanceByAccount(): Kleisli<F, AccountRepository<F>, Sequence<Pair<String, Amount>>> =
+    override fun balanceByAccount(): Kleisli<AccountRepository<F>, F, Sequence<Pair<String, Amount>>> =
         Kleisli { repo ->
             repo.all().map { accounts -> accounts.map { Pair(it.no, it.balance.amount) } }
         }

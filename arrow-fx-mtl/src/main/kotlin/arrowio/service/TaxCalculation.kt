@@ -6,5 +6,5 @@ import arrow.mtl.Kleisli
 
 interface TaxCalculation<Amount> {
 
-    fun computeTax(): Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, Amount, Amount>
+    fun computeTax(): Kleisli<Amount, EitherTPartialOf<AccountServiceException, ForIO>, Amount>
 }

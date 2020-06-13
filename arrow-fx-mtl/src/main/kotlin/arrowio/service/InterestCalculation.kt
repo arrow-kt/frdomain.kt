@@ -6,5 +6,5 @@ import arrow.mtl.Kleisli
 
 interface InterestCalculation<Account, Amount> {
 
-    fun calculateInterest(): Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, Account, Amount>
+    fun calculateInterest(): Kleisli<Account, EitherTPartialOf<AccountServiceException, ForIO>, Amount>
 }

@@ -20,7 +20,7 @@ val monadError = SingleK.monadError()
 val accountServiceSingle = AccountServiceInterpreter(monadError)
 val interestPostingServiceSingle = InterestPostingServiceInterpreter(monadError)
 val reportingServiceSingle = ReportingServiceInterpreter(monadError)
-val kleisliSingleMonad = ReaderT.monad<ForSingleK, AccountRepository<ForSingleK>>(monadError)
+val kleisliSingleMonad = ReaderT.monad<AccountRepository<ForSingleK>, ForSingleK>(monadError)
 
 fun main() {
     usecase1()

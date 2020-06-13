@@ -5,7 +5,7 @@ import arrow.mtl.EitherTPartialOf
 import arrow.mtl.Kleisli
 import arrowio.repository.AccountRepository
 
-typealias ReportOperation<A> = Kleisli<EitherTPartialOf<ForIO, AccountServiceException>, AccountRepository, A>
+typealias ReportOperation<A> = Kleisli<AccountRepository, EitherTPartialOf<AccountServiceException, ForIO>, A>
 
 interface ReportingService<Amount> {
 
