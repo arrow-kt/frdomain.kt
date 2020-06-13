@@ -1,12 +1,12 @@
-package io.arrowkt.tagless.model
+package tagless.model
 
 import arrow.core.*
 import arrow.core.extensions.nonemptylist.semigroup.semigroup
 import arrow.core.extensions.validated.applicative.applicative
-import io.arrowkt.tagless.Amount
-import io.arrowkt.tagless.ErrorOr
-import io.arrowkt.tagless.ValidationResult
-import io.arrowkt.tagless.today
+import tagless.Amount
+import tagless.ErrorOr
+import tagless.ValidationResult
+import tagless.today
 import java.math.BigDecimal
 import java.time.LocalDate
 

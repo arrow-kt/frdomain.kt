@@ -1,4 +1,4 @@
-package io.arrowkt.tagless.io.app
+package tagless.io.app
 
 import arrow.core.none
 import arrow.core.some
@@ -9,12 +9,12 @@ import arrow.fx.fix
 import arrow.mtl.ReaderT
 import arrow.mtl.extensions.kleisli.monad.monad
 import arrow.mtl.fix
-import io.arrowkt.tagless.repository.AccountRepository
-import io.arrowkt.tagless.repository.interpreter.AccountRepositoryInMemory
-import io.arrowkt.tagless.service.AccountType
-import io.arrowkt.tagless.service.interpreter.AccountServiceInterpreter
-import io.arrowkt.tagless.service.interpreter.InterestPostingServiceInterpreter
-import io.arrowkt.tagless.service.interpreter.ReportingServiceInterpreter
+import tagless.repository.AccountRepository
+import tagless.repository.interpreter.AccountRepositoryInMemory
+import tagless.service.AccountType
+import tagless.service.interpreter.AccountServiceInterpreter
+import tagless.service.interpreter.InterestPostingServiceInterpreter
+import tagless.service.interpreter.ReportingServiceInterpreter
 
 val accountServiceIO = AccountServiceInterpreter(IO.monadError())
 val interestPostingServiceIO = InterestPostingServiceInterpreter(IO.monadError())

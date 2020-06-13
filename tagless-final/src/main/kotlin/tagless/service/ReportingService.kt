@@ -1,7 +1,7 @@
-package io.arrowkt.tagless.service
+package tagless.service
 
 import arrow.mtl.Kleisli
-import io.arrowkt.tagless.repository.AccountRepository
+import tagless.repository.AccountRepository
 
 interface ReportingService<F, Amount> {
 

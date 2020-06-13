@@ -1,4 +1,4 @@
-package io.arrowkt.tagless
+package tagless
 
 import arrow.core.Either
 import arrow.core.NonEmptyList

@@ -1,4 +1,4 @@
-package io.arrowkt.tagless.service.interpreter
+package tagless.service.interpreter
 
 import arrow.Kind
 import arrow.core.None
@@ -9,14 +9,14 @@ import arrow.mtl.ReaderT
 import arrow.mtl.extensions.kleisli.monad.monad
 import arrow.mtl.fix
 import arrow.typeclasses.MonadError
-import io.arrowkt.tagless.Amount
-import io.arrowkt.tagless.ErrorOr
-import io.arrowkt.tagless.model.Account
-import io.arrowkt.tagless.model.Balance
-import io.arrowkt.tagless.repository.AccountRepository
-import io.arrowkt.tagless.service.AccountService
-import io.arrowkt.tagless.service.AccountType
-import io.arrowkt.tagless.today
+import tagless.Amount
+import tagless.ErrorOr
+import tagless.model.Account
+import tagless.model.Balance
+import tagless.repository.AccountRepository
+import tagless.service.AccountService
+import tagless.service.AccountType
+import tagless.today
 import java.math.BigDecimal
 import java.time.LocalDate
 

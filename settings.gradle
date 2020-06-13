@@ -1,3 +1,4 @@
 rootProject.name = 'frdomain-extra-arrow-kt'
 include 'arrow-fx-mtl'
+include 'tagless-final'
 

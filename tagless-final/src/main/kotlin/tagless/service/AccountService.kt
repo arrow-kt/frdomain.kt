@@ -1,8 +1,8 @@
-package io.arrowkt.tagless.service
+package tagless.service
 
 import arrow.core.Option
 import arrow.mtl.Kleisli
-import io.arrowkt.tagless.repository.AccountRepository
+import tagless.repository.AccountRepository
 import java.math.BigDecimal
 import java.time.LocalDate
 

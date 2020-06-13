@@ -1,4 +1,4 @@
-package io.arrowkt.tagless.service
+package tagless.service
 
 import arrow.mtl.Kleisli
 

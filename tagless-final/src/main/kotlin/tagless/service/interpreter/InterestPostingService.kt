@@ -1,11 +1,11 @@
-package io.arrowkt.tagless.service.interpreter
+package tagless.service.interpreter
 
 import arrow.core.getOrElse
 import arrow.mtl.Kleisli
 import arrow.typeclasses.MonadError
-import io.arrowkt.tagless.Amount
-import io.arrowkt.tagless.model.Account
-import io.arrowkt.tagless.service.InterestPostingService
+import tagless.Amount
+import tagless.model.Account
+import tagless.service.InterestPostingService
 import java.math.BigDecimal
 
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")

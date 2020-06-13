@@ -1,10 +1,10 @@
-package io.arrowkt.tagless.service.interpreter
+package tagless.service.interpreter
 
 import arrow.mtl.Kleisli
 import arrow.typeclasses.MonadError
-import io.arrowkt.tagless.Amount
-import io.arrowkt.tagless.repository.AccountRepository
-import io.arrowkt.tagless.service.ReportingService
+import tagless.Amount
+import tagless.repository.AccountRepository
+import tagless.service.ReportingService
 
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class ReportingServiceInterpreter<F>(me: MonadError<F, Throwable>) : ReportingService<F, Amount>,

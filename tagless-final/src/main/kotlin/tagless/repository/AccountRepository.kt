@@ -1,9 +1,9 @@
-package io.arrowkt.tagless.repository
+package tagless.repository
 
 import arrow.Kind
 import arrow.core.Option
-import io.arrowkt.tagless.model.Account
-import io.arrowkt.tagless.model.Balance
+import tagless.model.Account
+import tagless.model.Balance
 import java.time.LocalDate
 
 interface AccountRepository<F> {

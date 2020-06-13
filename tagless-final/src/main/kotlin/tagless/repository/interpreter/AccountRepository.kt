@@ -1,12 +1,12 @@
-package io.arrowkt.tagless.repository.interpreter
+package tagless.repository.interpreter
 
 import arrow.Kind
 import arrow.core.*
 import arrow.typeclasses.MonadError
-import io.arrowkt.tagless.model.Account
-import io.arrowkt.tagless.model.Balance
-import io.arrowkt.tagless.repository.AccountRepository
-import io.arrowkt.tagless.today
+import tagless.model.Account
+import tagless.model.Balance
+import tagless.repository.AccountRepository
+import tagless.today
 import java.time.LocalDate
 
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")

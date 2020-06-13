@@ -17,6 +17,8 @@ dependencies {
 
     implementation("io.arrow-kt:arrow-mtl:$arrow_version")
     implementation("io.arrow-kt:arrow-mtl-data:$arrow_version")
+
+    implementation("io.arrow-kt:arrow-fx-rx2:$arrow_version")
 }
 
 tasks {
