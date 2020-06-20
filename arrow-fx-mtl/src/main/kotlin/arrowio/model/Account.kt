@@ -47,7 +47,7 @@ sealed class Account(
             closeDate: Option<LocalDate>,
             balance: Balance
         ): ErrorOr<CheckingAccount> = ValidationResult.applicative(NonEmptyList.semigroup<String>())
-            .map(
+            .mapN(
                 validateAccountNo(no),
                 validateOpenCloseDate(
                     openDate.getOrElse { today() },
@@ -65,7 +65,7 @@ sealed class Account(
             closeDate: Option<LocalDate>,
             balance: Balance
         ): ErrorOr<SavingsAccount> = ValidationResult.applicative(NonEmptyList.semigroup<String>())
-            .map(
+            .mapN(
                 validateAccountNo(no),
                 validateOpenCloseDate(
                     openDate.getOrElse { today() },
@@ -91,7 +91,7 @@ sealed class Account(
 
         fun close(a: Account, closeDate: LocalDate): ErrorOr<Account> =
             ValidationResult.applicative(NonEmptyList.semigroup<String>())
-                .map(
+                .mapN(
                     validateAccountAlreadyClosed(a),
                     validateCloseDate(a, closeDate)
                 ) { (acc, _) ->
@@ -107,7 +107,7 @@ sealed class Account(
 
         fun updateBalance(a: Account, amount: Amount): ErrorOr<Account> =
             ValidationResult.applicative(NonEmptyList.semigroup<String>())
-                .map(
+                .mapN(
                     validateAccountAlreadyClosed(a),
                     checkBalance(a, amount)
                 ) { (acc, _) ->
