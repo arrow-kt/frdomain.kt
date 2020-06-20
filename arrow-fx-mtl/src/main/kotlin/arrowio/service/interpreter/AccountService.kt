@@ -41,9 +41,7 @@ object AccountService : AccountService<Account, Amount, Balance> {
                                             repo,
                                             Account.savingsAccount(no, name, r, openingDate, None, Balance())
                                         )
-                                    }.getOrElse {
-                                        IO { arrowio.service.RateMissingForSavingsAccount.left() }
-                                    }
+                                    }.getOrElse { IO { RateMissingForSavingsAccount.left() } }
                                 }
                             },
                             { IO { AlreadyExistingAccount(it.no).left() } }
@@ -77,10 +75,7 @@ object AccountService : AccountService<Account, Amount, Balance> {
                                 { IO { NonExistingAccount(no).left() } },
                                 {
                                     val cd = closeDate.getOrElse { today() }
-                                    createOrUpdate(
-                                        repo,
-                                        Account.close(it, cd)
-                                    )
+                                    createOrUpdate(repo, Account.close(it, cd))
                                 }
                             )
                         }
@@ -95,18 +90,10 @@ object AccountService : AccountService<Account, Amount, Balance> {
     }
 
     override fun debit(no: String, amount: Amount): AccountOperation<Account> =
-        up(
-            no,
-            amount,
-            DC.D
-        )
+        up(no, amount, DC.D)
 
     override fun credit(no: String, amount: Amount): AccountOperation<Account> =
-        up(
-            no,
-            amount,
-            DC.C
-        )
+        up(no, amount, DC.C)
 
     private fun up(no: String, amount: Amount, dc: DC): AccountOperation<Account> =
         Kleisli { repo ->
@@ -119,14 +106,8 @@ object AccountService : AccountService<Account, Amount, Balance> {
                                 { IO { NonExistingAccount(no).left() } },
                                 {
                                     val updated = when (dc) {
-                                        is DC.D -> createOrUpdate(
-                                            repo,
-                                            Account.updateBalance(it, -amount)
-                                        )
-                                        is DC.C -> createOrUpdate(
-                                            repo,
-                                            Account.updateBalance(it, amount)
-                                        )
+                                        is DC.D -> createOrUpdate(repo, Account.updateBalance(it, -amount))
+                                        is DC.C -> createOrUpdate(repo, Account.updateBalance(it, amount))
                                     }
                                     updated
                                 }
