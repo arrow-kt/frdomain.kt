@@ -1,4 +1,4 @@
-package arrowio
+package io.arrowkt.frdomain
 
 import arrow.core.Either
 import arrow.core.NonEmptyList
@@ -10,4 +10,4 @@ typealias Amount = BigDecimal
 typealias ValidationResult<A> = ValidatedNel<String, A>
 typealias ErrorOr<A> = Either<NonEmptyList<String>, A>
 
-fun today() = LocalDate.now()
+fun today(): LocalDate = LocalDate.now()

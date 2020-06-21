@@ -1,4 +1,4 @@
-package arrowio.service
+package io.arrowkt.frdomain.service
 
 import arrow.core.Either
 

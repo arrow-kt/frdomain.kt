@@ -1,7 +1,7 @@
-package arrowio.service
+package io.arrowkt.frdomain.service
 
 import arrow.core.Either
-import arrowio.repository.AccountRepository
+import io.arrowkt.frdomain.repository.AccountRepository
 
 interface ReportingService<D, Amount> where D : AccountRepository {
 

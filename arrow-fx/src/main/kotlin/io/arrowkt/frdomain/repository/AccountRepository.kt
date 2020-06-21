@@ -1,12 +1,12 @@
-package arrowio.repository
+package io.arrowkt.frdomain.repository
 
 import arrow.core.NonEmptyList
 import arrow.core.flatMap
 import arrow.core.left
 import arrow.core.right
-import arrowio.ErrorOr
-import arrowio.model.Account
-import arrowio.model.Balance
+import io.arrowkt.frdomain.ErrorOr
+import io.arrowkt.frdomain.model.Account
+import io.arrowkt.frdomain.model.Balance
 import java.time.LocalDate
 
 interface AccountRepository {

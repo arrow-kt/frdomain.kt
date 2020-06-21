@@ -1,15 +1,15 @@
-package arrowio.app
+package io.arrowkt.frdomain.app
 
 import arrow.core.either
-import arrowio.Amount
-import arrowio.repository.interpreter.AccountInMemoryRepository
-import arrowio.service.AccountServiceException
-import arrowio.service.AccountType.CHECKING
-import arrowio.service.AccountType.SAVINGS
-import arrowio.service.interpreter.AccountService.credit
-import arrowio.service.interpreter.AccountService.debit
-import arrowio.service.interpreter.AccountService.open
-import arrowio.service.interpreter.ReportingService.balanceByAccount
+import io.arrowkt.frdomain.Amount
+import io.arrowkt.frdomain.repository.interpreter.AccountInMemoryRepository
+import io.arrowkt.frdomain.service.AccountServiceException
+import io.arrowkt.frdomain.service.AccountType.CHECKING
+import io.arrowkt.frdomain.service.AccountType.SAVINGS
+import io.arrowkt.frdomain.service.interpreter.AccountService.credit
+import io.arrowkt.frdomain.service.interpreter.AccountService.debit
+import io.arrowkt.frdomain.service.interpreter.AccountService.open
+import io.arrowkt.frdomain.service.interpreter.ReportingService.balanceByAccount
 import java.math.BigDecimal
 
 suspend fun main() {

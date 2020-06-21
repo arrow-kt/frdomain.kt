@@ -1,14 +1,14 @@
-package arrowio.service.interpreter
+package io.arrowkt.frdomain.service.interpreter
 
 import arrow.core.*
-import arrowio.Amount
-import arrowio.ErrorOr
-import arrowio.model.Account
-import arrowio.model.Balance
-import arrowio.repository.AccountRepository
-import arrowio.service.*
-import arrowio.service.AccountService
-import arrowio.today
+import io.arrowkt.frdomain.Amount
+import io.arrowkt.frdomain.ErrorOr
+import io.arrowkt.frdomain.model.Account
+import io.arrowkt.frdomain.model.Balance
+import io.arrowkt.frdomain.repository.AccountRepository
+import io.arrowkt.frdomain.service.*
+import io.arrowkt.frdomain.service.AccountService
+import io.arrowkt.frdomain.today
 import java.math.BigDecimal
 import java.time.LocalDate
 

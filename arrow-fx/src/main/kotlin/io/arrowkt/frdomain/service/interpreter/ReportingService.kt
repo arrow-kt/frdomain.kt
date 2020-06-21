@@ -1,12 +1,12 @@
-package arrowio.service.interpreter
+package io.arrowkt.frdomain.service.interpreter
 
 import arrow.core.Either
 import arrow.core.either
-import arrowio.Amount
-import arrowio.repository.AccountRepository
-import arrowio.service.AccountServiceException
-import arrowio.service.MiscellaneousDomainExceptions
-import arrowio.service.ReportingService
+import io.arrowkt.frdomain.Amount
+import io.arrowkt.frdomain.repository.AccountRepository
+import io.arrowkt.frdomain.service.AccountServiceException
+import io.arrowkt.frdomain.service.MiscellaneousDomainExceptions
+import io.arrowkt.frdomain.service.ReportingService
 
 object ReportingService : ReportingService<AccountRepository, Amount> {
 

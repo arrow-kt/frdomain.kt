@@ -1,13 +1,13 @@
-package arrowio.service.interpreter
+package io.arrowkt.frdomain.service.interpreter
 
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import arrowio.Amount
-import arrowio.model.Account
-import arrowio.service.AccountServiceException
-import arrowio.service.ClosedAccount
-import arrowio.service.InterestPostingService
+import io.arrowkt.frdomain.Amount
+import io.arrowkt.frdomain.model.Account
+import io.arrowkt.frdomain.service.AccountServiceException
+import io.arrowkt.frdomain.service.ClosedAccount
+import io.arrowkt.frdomain.service.InterestPostingService
 import java.math.BigDecimal
 
 object InterestPostingService : InterestPostingService<Account, Amount> {

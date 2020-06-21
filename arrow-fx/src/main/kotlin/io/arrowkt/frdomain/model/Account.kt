@@ -1,12 +1,12 @@
-package arrowio.model
+package io.arrowkt.frdomain.model
 
 import arrow.core.*
 import arrow.core.extensions.nonemptylist.semigroup.semigroup
 import arrow.core.extensions.validated.applicative.applicative
-import arrowio.Amount
-import arrowio.ErrorOr
-import arrowio.ValidationResult
-import arrowio.today
+import io.arrowkt.frdomain.Amount
+import io.arrowkt.frdomain.ErrorOr
+import io.arrowkt.frdomain.ValidationResult
+import io.arrowkt.frdomain.today
 import java.math.BigDecimal
 import java.time.LocalDate
 

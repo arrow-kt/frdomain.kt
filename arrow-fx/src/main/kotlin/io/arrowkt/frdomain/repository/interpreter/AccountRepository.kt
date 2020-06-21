@@ -1,10 +1,10 @@
-package arrowio.repository.interpreter
+package io.arrowkt.frdomain.repository.interpreter
 
 import arrow.core.right
-import arrowio.ErrorOr
-import arrowio.model.Account
-import arrowio.repository.AccountRepository
-import arrowio.today
+import io.arrowkt.frdomain.ErrorOr
+import io.arrowkt.frdomain.model.Account
+import io.arrowkt.frdomain.repository.AccountRepository
+import io.arrowkt.frdomain.today
 import java.time.LocalDate
 
 class AccountInMemoryRepository : AccountRepository {

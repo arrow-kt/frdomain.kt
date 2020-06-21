@@ -1,9 +1,8 @@
-package arrowio.service
+package io.arrowkt.frdomain.service
 
 import arrow.core.Either
-import arrow.core.Option
 import arrow.core.either
-import arrowio.repository.AccountRepository
+import io.arrowkt.frdomain.repository.AccountRepository
 import java.math.BigDecimal
 import java.time.LocalDate
 
