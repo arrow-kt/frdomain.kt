@@ -7,13 +7,12 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven(url = "https://oss.jfrog.org/artifactory/oss-snapshot-local/") // for SNAPSHOT builds
 }
 
-val arrow_version = "0.11.0-SNAPSHOT"
+val arrow_version = "0.11.0"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.arrow-kt:arrow-fx:$arrow_version")
+    implementation("io.arrow-kt:arrow-fx-coroutines:$arrow_version")
     implementation("io.arrow-kt:arrow-syntax:$arrow_version")
 }
 

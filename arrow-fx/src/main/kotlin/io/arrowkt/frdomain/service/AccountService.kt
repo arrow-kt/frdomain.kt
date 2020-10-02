@@ -1,7 +1,7 @@
 package io.arrowkt.frdomain.service
 
 import arrow.core.Either
-import arrow.core.either
+import arrow.core.computations.either
 import io.arrowkt.frdomain.repository.AccountRepository
 import java.math.BigDecimal
 import java.time.LocalDate

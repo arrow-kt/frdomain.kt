@@ -1,7 +1,7 @@
 package io.arrowkt.frdomain.service.interpreter
 
 import arrow.core.Either
-import arrow.core.either
+import arrow.core.computations.either
 import io.arrowkt.frdomain.Amount
 import io.arrowkt.frdomain.repository.AccountRepository
 import io.arrowkt.frdomain.service.AccountServiceException

@@ -1,6 +1,6 @@
 package io.arrowkt.frdomain.app
 
-import arrow.core.either
+import arrow.core.computations.either
 import io.arrowkt.frdomain.Amount
 import io.arrowkt.frdomain.repository.AccountRepository
 import io.arrowkt.frdomain.repository.interpreter.AccountInMemoryRepository
