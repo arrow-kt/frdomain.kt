@@ -1,9 +1,6 @@
 package io.arrowkt.frdomain.repository
 
-import arrow.core.NonEmptyList
-import arrow.core.flatMap
-import arrow.core.left
-import arrow.core.right
+import arrow.core.*
 import io.arrowkt.frdomain.ErrorOr
 import io.arrowkt.frdomain.model.Account
 import io.arrowkt.frdomain.model.Balance
@@ -17,6 +14,6 @@ interface AccountRepository {
 
     suspend fun balance(no: String): ErrorOr<Balance> = query(no)
         .flatMap {
-            it?.balance?.right() ?: NonEmptyList.of("No account exists with $no").left()
+            it?.balance?.right() ?: nonEmptyListOf("No account exists with $no").left()
         }
 }

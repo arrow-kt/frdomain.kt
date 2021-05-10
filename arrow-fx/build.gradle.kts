@@ -9,11 +9,12 @@ repositories {
     mavenCentral()
 }
 
-val arrow_version = "0.11.0"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.arrow-kt:arrow-fx-coroutines:$arrow_version")
-    implementation("io.arrow-kt:arrow-syntax:$arrow_version")
+    implementation(platform("io.arrow-kt:arrow-stack:0.13.2"))
+
+    implementation("io.arrow-kt:arrow-core")
+    implementation("io.arrow-kt:arrow-fx-coroutines")
 }
 
 tasks {

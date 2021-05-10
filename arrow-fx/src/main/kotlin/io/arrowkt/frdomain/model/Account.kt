@@ -1,11 +1,6 @@
 package io.arrowkt.frdomain.model
 
-import arrow.core.NonEmptyList
-import arrow.core.extensions.nonemptylist.semigroup.semigroup
-import arrow.core.extensions.validated.applicative.applicative
-import arrow.core.fix
-import arrow.core.invalidNel
-import arrow.core.validNel
+import arrow.core.*
 import io.arrowkt.frdomain.Amount
 import io.arrowkt.frdomain.ErrorOr
 import io.arrowkt.frdomain.ValidationResult
@@ -47,16 +42,13 @@ sealed class Account(
             openDate: LocalDate?,
             closeDate: LocalDate?,
             balance: Balance
-        ): ErrorOr<CheckingAccount> = ValidationResult.applicative(NonEmptyList.semigroup<String>())
-            .mapN(
-                validateAccountNo(no),
+        ): ErrorOr<CheckingAccount> =
+            validateAccountNo(no).zip(
                 validateOpenCloseDate(
                     openDate ?: today(),
                     closeDate
                 )
-            ) { (n: String, d: Pair<LocalDate?, LocalDate?>) ->
-                CheckingAccount(n, name, d.first, d.second, balance)
-            }.fix().toEither()
+            ) { n, d -> CheckingAccount(n, name, d.first, d.second, balance) }.toEither()
 
         fun savingsAccount(
             no: String,
@@ -65,17 +57,17 @@ sealed class Account(
             openDate: LocalDate?,
             closeDate: LocalDate?,
             balance: Balance
-        ): ErrorOr<SavingsAccount> = ValidationResult.applicative(NonEmptyList.semigroup<String>())
-            .mapN(
-                validateAccountNo(no),
-                validateOpenCloseDate(
-                    openDate ?: today(),
-                    closeDate
-                ),
-                validateRate(rate)
-            ) { (n: String, d: Pair<LocalDate?, LocalDate?>, r: BigDecimal) ->
+        ): ErrorOr<SavingsAccount> =
+                validateAccountNo(no).zip(
+                    validateOpenCloseDate(
+                        openDate ?: today(),
+                        closeDate
+                    ),
+                    validateRate(rate)
+                )
+             { n: String, d: Pair<LocalDate?, LocalDate?>, r: BigDecimal ->
                 SavingsAccount(n, name, r, d.first, d.second, balance)
-            }.fix().toEither()
+            }.toEither()
 
         private fun validateAccountAlreadyClosed(a: Account): ValidationResult<Account> =
             if (a.dateOfClose != null) "Account ${a.no} already closed".invalidNel()
@@ -90,27 +82,22 @@ sealed class Account(
             }
 
         fun close(a: Account, closeDate: LocalDate): ErrorOr<Account> =
-            ValidationResult.applicative(NonEmptyList.semigroup<String>())
-                .mapN(
-                    validateAccountAlreadyClosed(a),
-                    validateCloseDate(a, closeDate)
-                ) { (acc, _) ->
+                    validateAccountAlreadyClosed(a).zip(
+                    validateCloseDate(a, closeDate))
+                { acc, _ ->
                     when (acc) {
                         is CheckingAccount -> acc.copy(dateOfClose = closeDate)
                         is SavingsAccount -> acc.copy(dateOfClose = closeDate)
                     }
-                }.fix().toEither()
+                }.toEither()
 
         private fun checkBalance(a: Account, amount: Amount): ValidationResult<Account> =
             if (amount < BigDecimal.ZERO && a.balance.amount < -amount) "Insufficient amount in ${a.no} to debit".invalidNel()
             else a.validNel()
 
         fun updateBalance(a: Account, amount: Amount): ErrorOr<Account> =
-            ValidationResult.applicative(NonEmptyList.semigroup<String>())
-                .mapN(
-                    validateAccountAlreadyClosed(a),
-                    checkBalance(a, amount)
-                ) { (acc, _) ->
+                    validateAccountAlreadyClosed(a).zip(
+                    checkBalance(a, amount)) { acc, _ ->
                     when (acc) {
                         is CheckingAccount -> acc.copy(
                             balance = Balance(
@@ -127,7 +114,7 @@ sealed class Account(
                             )
                         )
                     }
-                }.fix().toEither()
+                }.toEither()
 
         fun rate(a: Account): Amount? = when (a) {
             is SavingsAccount -> a.rateOfInterest
