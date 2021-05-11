@@ -42,8 +42,8 @@ object AccountService : AccountService<AccountRepository, Account, Amount, Balan
         repo: AccountRepository, errorOrAccount: ErrorOr<Account>
     ): Either<AccountServiceException, Account> =
         when (errorOrAccount) {
-            is Either.Left -> MiscellaneousDomainExceptions(errorOrAccount.a).left()
-            is Either.Right -> repo.store(errorOrAccount.b)
+            is Either.Left -> MiscellaneousDomainExceptions(errorOrAccount.value).left()
+            is Either.Right -> repo.store(errorOrAccount.value)
                 .mapLeft { MiscellaneousDomainExceptions(it) }
         }
 
